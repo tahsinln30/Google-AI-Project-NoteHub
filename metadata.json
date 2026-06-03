@@ -1,0 +1,6 @@
+{
+  "name": "NoteHub",
+  "description": "A cross-device syncing markdown notes editor with daily progress tracking and PDF export designed for students.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
