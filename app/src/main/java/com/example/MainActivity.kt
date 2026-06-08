@@ -2534,6 +2534,23 @@ fun ProgressHub(
                                                 fontWeight = if (taskPair.second) FontWeight.Normal else FontWeight.Bold,
                                                 modifier = Modifier.weight(1f)
                                             )
+                                            IconButton(
+                                                onClick = {
+                                                    syllabusTasks = syllabusTasks.toMutableList().apply {
+                                                        removeAt(index)
+                                                     }
+                                                },
+                                                modifier = Modifier
+                                                    .size(36.dp)
+                                                    .testTag("delete_syllabus_task_$index")
+                                            ) {
+                                                Icon(
+                                                    imageVector = Icons.Default.Delete,
+                                                    contentDescription = "Delete target",
+                                                    tint = MaterialTheme.colorScheme.error.copy(alpha = 0.8f),
+                                                    modifier = Modifier.size(18.dp)
+                                                )
+                                            }
                                         }
                                     }
                                 }
@@ -2696,23 +2713,40 @@ fun ProgressHub(
                                     modifier = Modifier.fillMaxWidth(),
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
-                                    if (isOptimizingCache) {
-                                        CircularProgressIndicator(
-                                            modifier = Modifier.size(16.dp),
-                                            strokeWidth = 2.dp,
-                                            color = activeColor
-                                        )
-                                        Spacer(modifier = Modifier.width(8.dp))
-                                        Text("Rebuilding indices...", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, fontWeight = FontWeight.Bold)
-                                    } else if (optimizationResult != null) {
-                                        Text(
-                                            text = "Storage check cleared successfully.",
-                                            color = Color(0xFF10B981),
-                                            fontSize = 11.sp,
-                                            fontWeight = FontWeight.Bold
-                                        )
+                                    Box(
+                                        modifier = Modifier.weight(1f),
+                                        contentAlignment = Alignment.CenterStart
+                                    ) {
+                                        if (isOptimizingCache) {
+                                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                                CircularProgressIndicator(
+                                                    modifier = Modifier.size(16.dp),
+                                                    strokeWidth = 2.dp,
+                                                    color = activeColor
+                                                )
+                                                Spacer(modifier = Modifier.width(8.dp))
+                                                Text(
+                                                    text = "Rebuilding indices...",
+                                                    fontSize = 11.sp,
+                                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                                    fontWeight = FontWeight.Bold,
+                                                    maxLines = 1,
+                                                    overflow = TextOverflow.Ellipsis
+                                                )
+                                            }
+                                        } else if (optimizationResult != null) {
+                                            Text(
+                                                text = "Storage check cleared successfully.",
+                                                color = Color(0xFF10B981),
+                                                fontSize = 11.sp,
+                                                fontWeight = FontWeight.Bold,
+                                                maxLines = 1,
+                                                overflow = TextOverflow.Ellipsis
+                                            )
+                                        }
                                     }
-                                    Spacer(modifier = Modifier.weight(1f))
+
+                                    Spacer(modifier = Modifier.width(8.dp))
 
                                     Button(
                                         onClick = {
